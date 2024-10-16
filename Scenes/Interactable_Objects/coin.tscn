@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://cco3k7qx6xo8e"]
+
+[ext_resource type="PackedScene" uid="uid://q36fkjveyfby" path="res://Scenes/InteractableObject.tscn" id="1_gmu0e"]
+[ext_resource type="Script" path="res://Scripts/coin.gd" id="2_i7cg7"]
+[ext_resource type="Texture2D" uid="uid://0onlkkwtef7a" path="res://Assets/coin.png" id="2_pbf3g"]
+
+[sub_resource type="Animation" id="Animation_lx0oy"]
+resource_name = "Idle"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_f0jrw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fux5r"]
+resource_name = "Pickup"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11, 12, 13]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8s435"]
+_data = {
+"Idle": SubResource("Animation_lx0oy"),
+"Pickup": SubResource("Animation_fux5r"),
+"RESET": SubResource("Animation_f0jrw")
+}
+
+[node name="Coin" instance=ExtResource("1_gmu0e")]
+z_index = -1
+y_sort_enabled = true
+collision_layer = 2
+script = ExtResource("2_i7cg7")
+item_type = ""
+item_name = ""
+item_texture = null
+item_effect = ""
+
+[node name="Sprite2D" parent="." index="0"]
+texture_filter = 1
+texture = ExtResource("2_pbf3g")
+hframes = 8
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_8s435")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_area_2d_body_exited"]
