@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://5q57wldv4b4u"]
+[gd_scene load_steps=11 format=3 uid="uid://5q57wldv4b4u"]
 
 [ext_resource type="PackedScene" uid="uid://06cjg617mqnm" path="res://Scenes/Player.tscn" id="1_nq27j"]
 [ext_resource type="Script" path="res://Scenes/SceneManager.gd" id="1_uxf20"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cekftamxr5kwn" path="res://Scenes/ItemPickupUI.tscn" id="4_v5jk1"]
 [ext_resource type="PackedScene" uid="uid://cqvw2qut7pd8m" path="res://UI/InventoryUI.tscn" id="4_x7xws"]
 [ext_resource type="PackedScene" uid="uid://cco3k7qx6xo8e" path="res://Scenes/Interactable_Objects/coin.tscn" id="5_82mdb"]
+[ext_resource type="PackedScene" uid="uid://i6gey63e4xn6" path="res://Scenes/InGameMenu.tscn" id="5_lkle0"]
+[ext_resource type="Script" path="res://Scenes/in_game_menu.gd" id="6_m4u70"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t4xxj"]
 texture = ExtResource("3_l181j")
@@ -8064,8 +8066,16 @@ PlayerScene = ExtResource("1_nq27j")
 [node name="GlobalUI" type="CanvasLayer" parent="."]
 
 [node name="InventoryUI" parent="GlobalUI" instance=ExtResource("4_x7xws")]
+visible = false
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="ItemPickupUI" parent="GlobalUI" instance=ExtResource("4_v5jk1")]
+visible = false
+
+[node name="InGameMenu" parent="GlobalUI" instance=ExtResource("5_lkle0")]
+visible = false
+script = ExtResource("6_m4u70")
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -1
@@ -8085,12 +8095,11 @@ spawn_path = NodePath("..")
 
 [node name="Players" type="Node2D" parent="."]
 
-[node name="Coin" parent="." instance=ExtResource("5_82mdb")]
-z_index = 0
-y_sort_enabled = false
-texture_filter = 1
-position = Vector2(37, 41)
-item_type = ""
-item_name = ""
-item_texture = null
-item_effect = ""
+[node name="Player" parent="Players" instance=ExtResource("1_nq27j")]
+m_speed = 1.0
+
+[node name="coin" parent="." instance=ExtResource("5_82mdb")]
+position = Vector2(-58, 39)
+
+[node name="coin2" parent="." instance=ExtResource("5_82mdb")]
+position = Vector2(17, 43)

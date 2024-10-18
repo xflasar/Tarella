@@ -6,7 +6,7 @@ extends Node2D
 @export var item_texture : Texture
 @export var item_effect = ""
 
-var scene_path = "res://Scenes/Inventory/InventoryItem.tscn"
+@export var item_scene ="" # "res://Scenes/Inventory/InventoryItem.tscn"
 
 @onready var icon_sprite = $Sprite2D
 
@@ -35,13 +35,12 @@ func pickup_item():
 		"item_name": item_name,
 		"item_texture": item_texture,
 		"item_effect": item_effect,
-		"scene_path": scene_path,
+		"item_scene": item_scene,
 	}
 	
 	if GameManager.player_node:
 		GameManager.inventory_add_item(item)
 		queue_free()
-
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
@@ -53,3 +52,11 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		player_in_pickup_range = false
 		body.interact_ui.visible = false
+
+
+func set_item_data(data):
+	item_type = data["item_type"]
+	item_name = data["item_name"]
+	item_effect = data["item_effect"]
+	item_texture = data["item_texture"]
+	item_scene = data["item_scene"]

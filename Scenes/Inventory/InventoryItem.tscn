@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://eooi47bgo8ff"]
+[gd_scene load_steps=3 format=3 uid="uid://eooi47bgo8ff"]
 
 [ext_resource type="Script" path="res://Scripts/inventory_item.gd" id="1_cdl7a"]
-[ext_resource type="Texture2D" uid="uid://0onlkkwtef7a" path="res://Assets/coin.png" id="1_uxwop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfb6f"]
 
@@ -9,7 +8,6 @@
 script = ExtResource("1_cdl7a")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_uxwop")
 hframes = 8
 vframes = 2
 

@@ -1,26 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://06cjg617mqnm"]
+[gd_scene load_steps=10 format=3 uid="uid://06cjg617mqnm"]
 
 [ext_resource type="PackedScene" uid="uid://7fdykhkpxoqj" path="res://Scenes/EntityBase.tscn" id="1_3p8aj"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_ms2s6"]
 [ext_resource type="Texture2D" uid="uid://ghbsclso83ib" path="res://Assets/Man-Char.png" id="3_2rmh1"]
 [ext_resource type="Script" path="res://Scenes/Camera.gd" id="4_deg4f"]
-
-[sub_resource type="Animation" id="Animation_du3gg"]
-resource_name = "Walk_Down"
-length = 0.4
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
 
 [sub_resource type="Animation" id="Animation_byod1"]
 length = 0.001
@@ -37,8 +20,44 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_du3gg"]
+resource_name = "Walk_Down"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_rutrl"]
+resource_name = "Idle"
+length = 1.7
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0nbhc"]
 _data = {
+"Idle": SubResource("Animation_rutrl"),
 "RESET": SubResource("Animation_byod1"),
 "Walk_Down": SubResource("Animation_du3gg")
 }
@@ -58,6 +77,7 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [node name="Player" groups=["Player"] instance=ExtResource("1_3p8aj")]
+process_mode = 3
 collision_layer = 1
 collision_mask = 62
 script = ExtResource("1_ms2s6")
@@ -65,9 +85,9 @@ m_speed = 0.5
 
 [node name="Sprite2D" parent="." index="0"]
 texture_filter = 1
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_2rmh1")
-hframes = 5
+hframes = 11
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, 6)
@@ -81,9 +101,12 @@ libraries = {
 remote_path = NodePath("../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="." index="4"]
-zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
 script = ExtResource("4_deg4f")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." index="5"]
